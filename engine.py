@@ -130,6 +130,40 @@ class Node:
 
         return out
 
+    # sigmoid activation function
+    def sigmoid(self) -> "Node":
+        """
+        Apply the sigmoid activation function to the node.
+
+        :return: The node with the sigmoid activation function applied
+        """
+        out = Node(1 / (1 + np.exp(-self.data)), _children=(self,), _op='sigmoid')
+
+        def _backward() -> None:
+            # derivative of sigmoid is sigmoid * (1 - sigmoid)
+            self.grad += (1 / (1 + np.exp(-self.data))) * (1 - (1 / (1 + np.exp(-self.data)))) * out.grad
+
+        out._backward = _backward
+
+        return out
+
+    # relu activation function
+    def relu(self) -> "Node":
+        """
+        Apply the relu activation function to the node.
+
+        :return: The node with the relu activation function applied
+        """
+        out = Node(np.maximum(0, self.data), _children=(self,), _op='relu')
+
+        def _backward() -> None:
+            # derivative of relu is 1 if x > 0 else 0
+            self.grad += (self.data > 0) * out.grad
+
+        out._backward = _backward
+
+        return out
+
     # exponentiation
     def exp(self) -> "Node":
         """
