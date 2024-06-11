@@ -1,7 +1,6 @@
 import random
 from engine import Node
 from typing import List, Union
-from loss import mse_loss
 
 
 class Neuron:
