@@ -16,7 +16,6 @@ class ReLU:
         """
         if isinstance(x, list):
             out = [xi.relu() for xi in x]
-
         else:
             out = x.relu()
 
@@ -57,7 +56,6 @@ class Tanh:
         """
         if isinstance(x, list):
             out = [xi.tanh() for xi in x]
-
         else:
             out = x.tanh()
 
