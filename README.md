@@ -2,7 +2,7 @@
 Welcome to micronet!
 
 ### What is micronet?
-Micronet is a `PyTorch` syntax inspired neural network architecture python library! 
+Micronet is a `PyTorch` syntax inspired neural network python library! 
 Andrej Karpathy's `micrograd` inspired the actual creation of this library. His video
 `The spelled-out intro to neural networks and backpropagation: building micrograd` really
 helped me grasp the concepts of neural networks, allowing me to build `micronet` on my own!
