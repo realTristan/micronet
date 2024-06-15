@@ -22,14 +22,18 @@ class Node:
         self._op = _op
         self._backward = lambda: None
 
-    # print the node in string form
-    def __repr__(self) -> AnyStr:
+    # node in string format
+    def __str__(self) -> AnyStr:
         """
         Return the string representation of the node.
 
         :return: The string representation of the node
         """
         return f"Node(data='{self.data}', grad='{self.grad}', label='{self.label}', op='{self._op}')"
+
+    # node in string format
+    def __repr__(self) -> AnyStr:
+        return self.__str__()
 
     # node addition
     def __add__(self, other) -> "Node":

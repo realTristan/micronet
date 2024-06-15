@@ -1,4 +1,3 @@
 from .activation import ReLU, Tanh
-from .layer import Layer
+from .linear import Linear
 from .module import Module
-from .neuron import Neuron

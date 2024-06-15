@@ -3,7 +3,8 @@ from typing import List, Union
 
 
 class ReLU:
-    def forward(self, x: Union[List, Node]) -> Node:
+    @staticmethod
+    def forward(x: Union[List, Node]) -> Node:
         if isinstance(x, list):
             out = [xi.relu() for xi in x]
 
@@ -20,7 +21,8 @@ class ReLU:
 
 
 class Tanh:
-    def forward(self, x: Union[List, Node]) -> Node:
+    @staticmethod
+    def forward(x: Union[List, Node]) -> Node:
         if isinstance(x, list):
             out = [xi.tanh() for xi in x]
 

@@ -1,15 +1,23 @@
 from typing import List, Union, Any
 from engine.node import Node
-from engine.nn.layer import Layer
+from engine.nn.linear import Linear
 
 
 class Module:
     def __init__(self, _sequence: List[Any]) -> None:
         self._sequence = _sequence
 
-    def parameters(self) -> List[Node]:
-        # if row is a layer, get the parameters of the layer
-        return [p for row in self._sequence if isinstance(row, Layer) for p in row.parameters()]
+    def parameters(self, _attribute_error_callback: Any = None) -> List[Node]:
+        params: List[Node] = []
+
+        for row in self._sequence:
+            try:
+                params.extend(row.parameters())
+            except AttributeError:
+                if _attribute_error_callback is not None:
+                    _attribute_error_callback(row)
+
+        return params
 
     def zero_grad(self) -> None:
         for p in self.parameters():
