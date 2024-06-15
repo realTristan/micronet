@@ -7,7 +7,6 @@ class ReLU:
     def forward(x: Union[List, Node]) -> Node:
         if isinstance(x, list):
             out = [xi.relu() for xi in x]
-
         else:
             out = x.relu()
 
@@ -25,7 +24,6 @@ class Tanh:
     def forward(x: Union[List, Node]) -> Node:
         if isinstance(x, list):
             out = [xi.tanh() for xi in x]
-
         else:
             out = x.tanh()
 
