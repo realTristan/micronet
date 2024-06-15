@@ -10,6 +10,16 @@ helped me grasp the concepts of neural networks, allowing me to build `micronet`
 ### Example
 This is an example output from running the `main.py` script.
 
+#### Imports
+The imports used in the example!
+
+```python3
+from engine.nn.module import Module
+from engine.nn.linear import Linear
+from engine.nn.activation import ReLU
+from engine.loss import MSELoss
+```
+
 #### Model Class
 Defining our model!
 

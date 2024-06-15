@@ -1,7 +1,6 @@
-import numpy as np
 from engine.nn.module import Module
 from engine.nn.linear import Linear
-from engine.nn.activation import Tanh, ReLU, GeLU
+from engine.nn.activation import ReLU
 from engine.loss import MSELoss
 
 
