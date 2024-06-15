@@ -124,24 +124,7 @@ class Node:
 
         def _backward() -> None:
             # derivative of tanh is 1 - tanh^2
-            self.grad += (1 - np.tanh(self.data) ** 2) * out.grad
-
-        out._backward = _backward
-
-        return out
-
-    # sigmoid activation function
-    def sigmoid(self) -> "Node":
-        """
-        Apply the sigmoid activation function to the node.
-
-        :return: The node with the sigmoid activation function applied
-        """
-        out = Node(1 / (1 + np.exp(-self.data)), _children=(self,), _op='sigmoid')
-
-        def _backward() -> None:
-            # derivative of sigmoid is sigmoid * (1 - sigmoid)
-            self.grad += (1 / (1 + np.exp(-self.data))) * (1 - (1 / (1 + np.exp(-self.data)))) * out.grad
+            self.grad += (1 - out.data ** 2) * out.grad
 
         out._backward = _backward
 

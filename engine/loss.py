@@ -1,5 +1,5 @@
 from typing import List, Union
-from engine import Node
+from engine.node import Node
 
 
 # Mean Squared Error Loss
@@ -19,7 +19,7 @@ def mse_loss(
     n = len(y_true)
 
     # compute the sum of the squared differences
-    loss = sum([(y_pred[i] - y_true[i]) ** 2 for i in range(n)])
+    _sum = sum((y_pred[i] - y_true[i]) ** 2 for i in range(n))
 
     # return the average loss
-    return loss / n
+    return _sum / n

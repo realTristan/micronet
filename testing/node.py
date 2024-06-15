@@ -1,5 +1,5 @@
 import unittest
-from engine import Node
+from engine.node import Node
 
 
 class NodeTestCase(unittest.TestCase):
