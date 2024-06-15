@@ -4,6 +4,7 @@ from engine.nn.linear import Linear
 from engine.nn.activation import Tanh, ReLU
 from engine.loss import MSELoss
 
+
 class MLPModel(Module):
     def __init__(self) -> None:
         super(MLPModel, self).__init__([
@@ -45,7 +46,6 @@ if __name__ == "__main__":
     ##
     ## Train the network
     ##
-    print("Train")
     for epoch in range(epochs):
         for i, x in enumerate(train_data):
             model.zero_grad()
@@ -63,7 +63,7 @@ if __name__ == "__main__":
     ##
     ## Test the network
     ##
-    print("Test")
+    print("\nTest")
     for i, x in enumerate(test_data):
         y = model(x)
         print(f"Prediction: {y.data}, Actual: {test_labels[i]}")
