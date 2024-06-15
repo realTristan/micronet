@@ -8,18 +8,47 @@ class Neuron:
         self.weights = [Node(random.uniform(-1, 1)) for _ in range(features)]
         self.bias = Node(random.uniform(-1, 1))
 
+    # forward pass through the neuron
     def forward(self, x: List[Union["Node", int, float]]) -> Node:
+        """
+        Forward pass through the neuron.
+
+        :param x: the input to the neuron
+        :return:
+            The output after passing through the neuron
+        """
         out = sum((wi * xi for wi, xi in zip(self.weights, x)), self.bias)
 
         return out
 
+    # return the parameters of the neuron
     def parameters(self) -> List[Node]:
+        """
+        Return the parameters of the neuron.
+
+        :return:
+            The parameters of the neuron
+        """
         return self.weights + [self.bias]
 
+    # the string representation of the neuron
     def __str__(self) -> str:
+        """
+        the string representation of the neuron.
+
+        :return:
+            The string representation of the neuron
+        """
         return f"Neuron(weights={[str(w) for w in self.weights]}, bias={str(self.bias)})"
 
+    # the string representation of the neuron
     def __repr__(self) -> str:
+        """
+        the string representation of the neuron.
+
+        :return:
+            The string representation of the neuron
+        """
         return self.__str__()
 
 

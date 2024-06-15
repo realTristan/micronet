@@ -63,13 +63,12 @@ The actual loops used to train and then test the network!
 ## Train the network
 ##
 for epoch in range(epochs):
-    for i, x in enumerate(train_data):
+    for x, y in zip(train_data, train_labels):
         model.zero_grad()
 
-        y_true = train_labels[i]
         y_pred = model(x)
 
-        criterion(y_true, y_pred)
+        criterion(y, y_pred)
         criterion.backward()
 
     model.update(lr)

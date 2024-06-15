@@ -1,5 +1,6 @@
 from typing import Tuple, AnyStr, List, Union, Set
 import numpy as np
+import random
 
 
 class Node:
@@ -21,6 +22,7 @@ class Node:
         self._children = set(_children)
         self._op = _op
         self._backward = lambda: None
+        self._coeff = 1.0
 
     # node in string format
     def __str__(self) -> AnyStr:
@@ -48,13 +50,14 @@ class Node:
         out = Node(self.data + other.data, _children=(self, other), _op='+')
 
         def _backward() -> None:
-            # if self and other are the same, return 2.0, else 1.0
-            # this is because the derivative of, for ex: a + a (2a) with respect
-            # to the output is 2 and not 1
-            c = 2.0 if self == other else 1.0
+            # consider the numerical coefficient of the variables
+            # derivative of 2a with respect to a is 2, etc.
+            self.grad += (1 * out.grad) * self._coeff
+            other.grad += (1 * out.grad) * other._coeff
 
-            self.grad += c * out.grad
-            other.grad += c * other.grad
+            # update the coefficient to account for 2a, or 3a, etc.
+            if self == other:
+                out._coeff = self._coeff + other._coeff
 
         out._backward = _backward
 
@@ -73,9 +76,14 @@ class Node:
         out = Node(self.data * other.data, _children=(self, other), _op='*')
 
         def _backward() -> None:
-            # derivative of A * B with respect to A is B and vice versa
-            self.grad += other.data * out.grad
-            other.grad += self.data * out.grad
+            # consider the numerical coefficient of the variables
+            # derivative of 2a*b with respect to a is 2b, etc.
+            self.grad += (other.data * out.grad) * self._coeff
+            other.grad += (self.data * out.grad) * other._coeff
+
+            # update the coefficient to account for 2a^2, or 3a^2, etc.
+            if self == other:
+                out._coeff = self._coeff * other._coeff
 
         out._backward = _backward
 
@@ -95,8 +103,13 @@ class Node:
         out = Node(self.data ** other, _children=(self,), _op=f'**{other}')
 
         def _backward() -> None:
-            # derivative of A^B with respect to A is B * A^(B-1)
-            self.grad += other * (self.data ** (other - 1)) * out.grad
+            # consider the numerical coefficient of the variables
+            # derivative of 2a^b with respect to a is 2b*a^(b-1), etc.
+            self.grad += (other * (self.data ** (other - 1)) * out.grad) * self._coeff
+
+            # update the coefficient to account for 2a^2, or 3a^2, etc.
+            if self == other:
+                out._coeff = self._coeff * other
 
         out._backward = _backward
 
@@ -124,7 +137,7 @@ class Node:
 
     # right subtraction
     def __rsub__(self, other):
-        return -self + other
+        return (-self) + other
 
     # tanh activation function
     def tanh(self) -> "Node":

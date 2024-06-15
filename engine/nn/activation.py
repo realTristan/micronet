@@ -80,3 +80,43 @@ class Tanh:
             The string representation of the Tanh activation function
         """
         return self.__str__()
+
+
+class GeLU:
+    # forward pass through the GeLU activation function
+    @staticmethod
+    def forward(x: Union[List, Node]) -> Node:
+        """
+        Forward pass through the GeLU activation function.
+
+        :param x: The input to the GeLU activation function
+
+        :return:
+            The output after passing through the GeLU activation function
+        """
+        if isinstance(x, list):
+            out = [xi.gelu() for xi in x]
+        else:
+            out = x.gelu()
+
+        return out
+
+    # string representation of the GeLU activation function
+    def __str__(self) -> str:
+        """
+        Return the string representation of the GeLU activation function.
+
+        :return:
+            The string representation of the GeLU activation function
+        """
+        return "GeLU()"
+
+    # string representation of the GeLU activation function
+    def __repr__(self) -> str:
+        """
+        Return the string representation of the GeLU activation function.
+
+        :return:
+            The string representation of the GeLU activation function
+        """
+        return self.__str__()
