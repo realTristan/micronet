@@ -102,20 +102,29 @@ class Node:
 
         return out
 
+    # right multiplication
     def __rmul__(self, other):
         return self * other
 
+    # division
     def __truediv__(self, other):
         return self * (other ** -1)
 
+    # negation
     def __neg__(self):
         return self * -1
 
+    # subtraction
     def __sub__(self, other):
         return self + (-other)
 
+    # right addition
     def __radd__(self, other):
         return self + other
+
+    # right subtraction
+    def __rsub__(self, other):
+        return -self + other
 
     # tanh activation function
     def tanh(self) -> "Node":
@@ -146,6 +155,26 @@ class Node:
         def _backward() -> None:
             # derivative of relu is 1 if x > 0 else 0
             self.grad += (self.data > 0) * out.grad
+
+        out._backward = _backward
+
+        return out
+
+    # gelu activation function
+    def gelu(self) -> "Node":
+        """
+        Apply the gelu activation function to the node.
+
+        :return: The node with the gelu activation function applied
+        """
+        out = Node(0.5 * self.data * (1 + np.tanh(np.sqrt(2 / np.pi) * (self.data + 0.044715 * self.data ** 3))),
+                   _children=(self,), _op='gelu')
+
+        def _backward() -> None:
+            # derivative of gelu is very long since product rule is applied
+            self.grad += (0.5 * (1 + np.tanh(np.sqrt(2 / np.pi) * (self.data + 0.044715 * self.data ** 3))) +
+                          0.5 * (1 - np.tanh(np.sqrt(2 / np.pi) * (self.data + 0.044715 * self.data ** 3)) ** 2) *
+                          (np.sqrt(2 / np.pi) * (1 + 0.134145 * self.data ** 2))) * out.grad
 
         out._backward = _backward
 
