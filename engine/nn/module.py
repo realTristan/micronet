@@ -4,8 +4,8 @@ from engine.nn.linear import Linear
 
 
 class Module:
-    def __init__(self, _sequence: List[Any]) -> None:
-        self._sequence = _sequence
+    def __init__(self, sequence: List[Any]) -> None:
+        self._sequence = sequence
 
     def parameters(self, _attribute_error_callback: Any = None) -> List[Node]:
         params: List[Node] = []
