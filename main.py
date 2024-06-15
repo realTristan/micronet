@@ -18,14 +18,11 @@ class MLPModel(Module):
 
 # execute the code
 if __name__ == "__main__":
-    from engine.loss import mse_loss
-
     ## Model, Criterion, and Hyperparameters
     model = MLPModel()
     criterion = MSELoss()
-    lr = 0.01
-    epochs = 1000
-
+    lr = 0.1
+    epochs = 100
 
     ## Train data and corresponding labels
     train_data = [
@@ -36,14 +33,7 @@ if __name__ == "__main__":
         [1.75, 75, 0],
         [1.65, 55, 0],
     ]
-    train_labels = [
-        [25],
-        [20],
-        [30],
-        [35],
-        [27],
-        [22],
-    ]
+    train_labels = [25, 20, 30, 35, 27, 22]
 
     ## Test data and corresponding labels
     test_data = [
